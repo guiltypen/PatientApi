@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
+const { patientCreate } = require("../Controllers/patientController");
 const {
   hospitalCreate,
   hospitalUpdate,
   hospitalDelete,
   hospitalList,
   fetchhospital,
-  patientCreate,
 } = require("../Controllers/hospitalController");
 
 router.param("hospitalId", async (req, res, next, hospitalId) => {
@@ -29,7 +28,7 @@ router.get("/", hospitalList);
 //delete patients
 router.delete("/:hospitalId", hospitalDelete);
 
-// create patient
+// create hospital
 router.post("/", hospitalCreate);
 
 //Update patient
@@ -37,6 +36,6 @@ router.post("/", hospitalCreate);
 router.put("/:hospitalId", hospitalUpdate);
 
 // create patient
-router.post("/:hospitalId", patientCreate);
+// router.post("/:hospitalId/patients", patientCreate);
 
 module.exports = router;

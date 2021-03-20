@@ -2,15 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  patientCreate,
   patientUpdate,
   patientDelete,
   patientList,
   fetchPatient,
+  patientCreate,
 } = require("../Controllers/patientController");
 // get patients
-
 router.get("/", patientList);
+
+//create patient
+router.post("/", patientCreate);
 
 //delete patients
 router.delete("/:patientId", patientDelete);
@@ -18,7 +20,6 @@ router.delete("/:patientId", patientDelete);
 //Update patient
 
 router.put("/:patientId", patientUpdate);
-module.exports = router;
 
 router.param("patientId", async (req, res, next, patientId) => {
   const patient = await fetchPatient(patientId, next);
@@ -31,3 +32,5 @@ router.param("patientId", async (req, res, next, patientId) => {
     next(err);
   }
 });
+
+module.exports = router;

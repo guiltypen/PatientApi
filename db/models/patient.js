@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
+    Hospitalname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
   SequelizeSlugify.slugifyModel(Patient, {
     source: ["patientName"],

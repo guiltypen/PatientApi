@@ -10,13 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
     },
     DoctorQualitfication: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        min: 1,
-      },
-    },
-    CaseDescription: {
       type: DataTypes.STRING,
       allowNull: false,
     },

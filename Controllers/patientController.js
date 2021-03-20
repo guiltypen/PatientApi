@@ -9,7 +9,40 @@ exports.fetchPatient = async (patientId, next) => {
   }
 };
 
-//Delete
+//Patient List
+exports.patientList = async (req, res, next) => {
+  try {
+    const patients = await Patient.findAll(
+      //    {
+      //   attributes: {
+      //     exclude: ["createdAt", "updatedAt"],
+      //     include: {
+      //       model: Hospital,
+      //       as: "Hospitals",
+      //       attributes: ["id"],
+      //     },
+      //   },
+      // });
+      res.json(patients)
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+// create patient
+exports.patientCreate = async (req, res, next) => {
+  try {
+    // req.body.hospitalId = req.hospital.id;
+    const newPatient = await Patient.create(req.body);
+    res.status(201).json(newPatient);
+  } catch (error) {
+    res.json({ message: error });
+  }
+  next();
+};
+
+//Delete patient
 exports.patientDelete = async (req, res, next) => {
   const { patientId } = req.params;
   try {
@@ -20,19 +53,7 @@ exports.patientDelete = async (req, res, next) => {
   }
 };
 
-//PatientList
-exports.patientList = async (req, res, next) => {
-  try {
-    const patients = await Patient.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-    });
-    res.json(patients);
-  } catch (error) {
-    next(error);
-  }
-};
-
-//update
+//update patient
 exports.patientUpdate = async (req, res, next) => {
   try {
     await req.patient.update(req.body);

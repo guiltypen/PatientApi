@@ -1,4 +1,4 @@
-const { Hospital, Patient } = require("../db/models");
+const { Hospital } = require("../db/models");
 
 exports.fetchHospital = async (hospitalId, next) => {
   try {
@@ -9,7 +9,17 @@ exports.fetchHospital = async (hospitalId, next) => {
   }
 };
 
-// create
+//hospital List
+exports.hospitalList = async (req, res, next) => {
+  try {
+    const hospitals = await Hospital.findAll();
+    res.json(hospitals);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// create hospital
 exports.hospitalCreate = async (req, res, next) => {
   try {
     const newHospital = await Hospital.create(req.body);
@@ -19,7 +29,7 @@ exports.hospitalCreate = async (req, res, next) => {
   }
 };
 
-//Delete
+//Delete hospital
 exports.hospitalDelete = async (req, res, next) => {
   try {
     await req.hospital.destroy(req.body);
@@ -29,19 +39,7 @@ exports.hospitalDelete = async (req, res, next) => {
   }
 };
 
-//hospitalList
-exports.hospitalList = async (req, res, next) => {
-  try {
-    const hospitals = await Hospital.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-    });
-    res.json(hospitals);
-  } catch (error) {
-    next(error);
-  }
-};
-
-//update
+// update hospital
 exports.hospitalUpdate = async (req, res, next) => {
   try {
     await req.patient.update(req.body);
@@ -51,12 +49,13 @@ exports.hospitalUpdate = async (req, res, next) => {
   }
 };
 
-// create patient
-exports.patientCreate = async (req, res, next) => {
-  try {
-    const newPatient = await Patient.create(req.body);
-    res.status(201).json(newPatient);
-  } catch (error) {
-    res.json({ message: error });
-  }
-};
+// exports.patientCreate = async (req, res, next) => {
+//   try {
+//     req.body.hospitalId = req.hospital;
+//     const newPatient = await Patient.create(req.body);
+//     res.status(201).json(newPatient);
+//   } catch (error) {
+//     res.json({ message: error });
+//   }
+//   next();
+// };
