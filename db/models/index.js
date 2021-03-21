@@ -44,9 +44,21 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //Relations
-db.Hospital.hasMany(db.Patient);
+db.Hospital.hasMany(db.Patient, {
+  foreignKey: "hospitalId",
+  allowNull: false,
+});
+
+db.Patient.belongsTo(db.Hospital, {
+  as: "hospital",
+  foreignKey: "hospitalId",
+});
+
+db.Hospital.belongsToMany(db.Doctor, {
+  through: "Hospital_Doctor",
+});
+db.Doctor.belongsToMany(db.Hospital, {
+  through: "Hospital_Doctor",
+});
+
 module.exports = db;
-// db.Patient.belongsTo(db.Hospital, {
-//   foreignKey: "hospitalId",
-//   allowNull: false,
-// });

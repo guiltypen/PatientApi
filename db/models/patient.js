@@ -1,7 +1,7 @@
 const SequelizeSlugify = require("sequelize-slugify");
 module.exports = (sequelize, DataTypes) => {
   const Patient = sequelize.define("Patient", {
-    patientName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -9,19 +9,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true,
     },
-    patientAge: {
+    age: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         min: 1,
       },
     },
-    CaseDescription: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    Hospitalname: {
+    case: {
       type: DataTypes.STRING,
       allowNull: false,
     },

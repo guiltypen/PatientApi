@@ -1,16 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const { patientCreate } = require("../Controllers/patientController");
+
 const {
   hospitalCreate,
   hospitalUpdate,
   hospitalDelete,
   hospitalList,
-  fetchhospital,
+  fetchHospital,
+  patientCreate,
 } = require("../Controllers/hospitalController");
 
 router.param("hospitalId", async (req, res, next, hospitalId) => {
-  const hospital = await fetchhospital(hospitalId, next);
+  const hospital = await fetchHospital(hospitalId, next);
   if (hospital) {
     req.hospital = hospital;
     next();
@@ -36,6 +37,6 @@ router.post("/", hospitalCreate);
 router.put("/:hospitalId", hospitalUpdate);
 
 // create patient
-// router.post("/:hospitalId/patients", patientCreate);
+router.post("/:hospitalId/patients", patientCreate);
 
 module.exports = router;

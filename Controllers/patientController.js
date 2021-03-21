@@ -1,4 +1,4 @@
-const { Patient } = require("../db/models");
+const { Patient, Hospital } = require("../db/models");
 
 exports.fetchPatient = async (patientId, next) => {
   try {
@@ -12,35 +12,32 @@ exports.fetchPatient = async (patientId, next) => {
 //Patient List
 exports.patientList = async (req, res, next) => {
   try {
-    const patients = await Patient.findAll(
-      //    {
-      //   attributes: {
-      //     exclude: ["createdAt", "updatedAt"],
-      //     include: {
-      //       model: Hospital,
-      //       as: "Hospitals",
-      //       attributes: ["id"],
-      //     },
-      //   },
-      // });
-      res.json(patients)
-    );
+    const patients = await Patient.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: {
+        model: Hospital,
+        as: "hospital",
+        attributes: ["name"],
+      },
+    });
+
+    res.json(patients);
   } catch (error) {
     next(error);
   }
 };
 
 // create patient
-exports.patientCreate = async (req, res, next) => {
-  try {
-    // req.body.hospitalId = req.hospital.id;
-    const newPatient = await Patient.create(req.body);
-    res.status(201).json(newPatient);
-  } catch (error) {
-    res.json({ message: error });
-  }
-  next();
-};
+// exports.patientCreate = async (req, res, next) => {
+//   try {
+//     // req.body.hospitalId = req.hospital.id;
+//     const newPatient = await Patient.create(req.body);
+//     res.status(201).json(newPatient);
+//   } catch (error) {
+//     res.json({ message: error });
+//   }
+//   next();
+// };
 
 //Delete patient
 exports.patientDelete = async (req, res, next) => {

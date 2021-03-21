@@ -12,7 +12,7 @@ const {
 router.get("/", patientList);
 
 //create patient
-router.post("/", patientCreate);
+// router.post("/", patientCreate);
 
 //delete patients
 router.delete("/:patientId", patientDelete);
