@@ -3,12 +3,11 @@ const patientRoutes = require("./Routes/Patient");
 const hospitalsRoutes = require("./Routes/Hospital");
 const doctorsRoutes = require("./Routes/doctors");
 const db = require("./db/models");
-
 const cors = require("cors");
-const app = express();
 
-app.use(express.json());
+const app = express();
 app.use(cors());
+app.use(express.json());
 
 // assign routes to url
 app.use("/patients", patientRoutes);
@@ -34,7 +33,7 @@ app.use((err, req, res, next) => {
 
 const run = async () => {
   try {
-    await db.sequelize.sync({ force: true });
+    await db.sequelize.sync();
     console.log("Connection to the database successful!");
     await app.listen(8000, () => {
       console.log("The application is running on localhost:8000");

@@ -55,10 +55,10 @@ db.Patient.belongsTo(db.Hospital, {
 });
 
 db.Hospital.belongsToMany(db.Doctor, {
-  through: "Hospital_Doctor",
+  through: "hospital_doctors",
 });
 db.Doctor.belongsToMany(db.Hospital, {
-  through: "Hospital_Doctor",
+  through: "hospital_doctors",
 });
 
 module.exports = db;

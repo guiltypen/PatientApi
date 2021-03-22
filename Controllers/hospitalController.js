@@ -20,8 +20,9 @@ exports.hospitalList = async (req, res, next) => {
       },
       include: {
         model: Doctor,
-        as: "doctor",
-        attributes: ["name"],
+        // as: "Doctor",
+        // attributes: ["DoctorName"],
+        attributes: { exclude: ["createdAt", "updatedAt"] },
       },
     });
     res.json(hospitals);
