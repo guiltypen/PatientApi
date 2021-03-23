@@ -2,15 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  doctorCreate,
   doctorUpdate,
   doctorDelete,
   doctorList,
-  fetchdoctor,
+  fetchDoctor,
 } = require("../Controllers/doctorsControllers");
 
 router.param("doctorId", async (req, res, next, doctorId) => {
-  const doctor = await fetchdoctor(doctorId, next);
+  const doctor = await fetchDoctor(doctorId, next);
   if (doctor) {
     req.doctor = doctor;
     next();
@@ -27,8 +26,8 @@ router.get("/", doctorList);
 //delete patients
 router.delete("/:doctorId", doctorDelete);
 
-// create doctor
-router.post("/", doctorCreate);
+// // create doctor
+// router.post("/", doctorCreate);
 
 //Update patient
 

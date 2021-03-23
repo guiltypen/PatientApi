@@ -6,13 +6,9 @@ const {
   patientDelete,
   patientList,
   fetchPatient,
-  patientCreate,
 } = require("../Controllers/patientController");
 // get patients
 router.get("/", patientList);
-
-//create patient
-// router.post("/", patientCreate);
 
 //delete patients
 router.delete("/:patientId", patientDelete);

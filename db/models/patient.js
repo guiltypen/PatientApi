@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   SequelizeSlugify.slugifyModel(Patient, {
-    source: ["patientName"],
+    source: ["name"],
   });
   return Patient;
 };

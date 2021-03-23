@@ -8,6 +8,7 @@ const {
   hospitalList,
   fetchHospital,
   patientCreate,
+  doctorCreate,
 } = require("../Controllers/hospitalController");
 
 router.param("hospitalId", async (req, res, next, hospitalId) => {
@@ -38,5 +39,8 @@ router.put("/:hospitalId", hospitalUpdate);
 
 // create patient
 router.post("/:hospitalId/patients", patientCreate);
+
+// create doctor
+router.post("/:hospitalId/doctors", doctorCreate);
 
 module.exports = router;

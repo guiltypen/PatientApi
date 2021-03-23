@@ -1,9 +1,9 @@
-const { Doctor } = require("../db/models");
+const { Doctor, Hospital } = require("../db/models");
 
-exports.fetchHospital = async (hospitalId, next) => {
+exports.fetchDoctor = async (doctorId, next) => {
   try {
-    const hospital = await Hospital.findByPk(hospitalId);
-    return hospital;
+    const doctor = await Doctor.findByPk(doctorId);
+    return doctor;
   } catch (error) {
     next(error);
   }
@@ -12,24 +12,21 @@ exports.fetchHospital = async (hospitalId, next) => {
 //doctor List
 exports.doctorList = async (req, res, next) => {
   try {
-    const doctors = await Doctor.findAll();
+    const doctors = await Doctor.findAll({
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: {
+        model: Hospital,
+        as: "hospital",
+        attributes: ["name"],
+      },
+    });
     res.json(doctors);
   } catch (error) {
     next(error);
   }
 };
 
-// create doctor
-exports.doctorCreate = async (req, res, next) => {
-  try {
-    const newDoctor = await Doctor.create(req.body);
-    res.status(201).json(newDoctor);
-  } catch (error) {
-    next(error);
-  }
-};
-
-//Delete hospital
+//Delete Doctor
 exports.doctorDelete = async (req, res, next) => {
   try {
     await req.doctor.destroy(req.body);
@@ -39,7 +36,7 @@ exports.doctorDelete = async (req, res, next) => {
   }
 };
 
-// update hospital
+// update doctor
 exports.doctorUpdate = async (req, res, next) => {
   try {
     await req.doctor.update(req.body);

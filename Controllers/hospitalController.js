@@ -71,3 +71,14 @@ exports.patientCreate = async (req, res, next) => {
   }
   next();
 };
+
+// create doctor
+exports.doctorCreate = async (req, res, next) => {
+  try {
+    req.body.hospitalId = req.hospital.id;
+    const newDoctor = await Doctor.create(req.body);
+    res.status(201).json(newDoctor);
+  } catch (error) {
+    next(error);
+  }
+};

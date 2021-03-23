@@ -55,10 +55,22 @@ db.Patient.belongsTo(db.Hospital, {
 });
 
 db.Hospital.belongsToMany(db.Doctor, {
-  through: "hospital_doctors",
+  through: db.hospital_doctors,
+  foreignKey: "hospitalId",
 });
 db.Doctor.belongsToMany(db.Hospital, {
-  through: "hospital_doctors",
+  through: db.hospital_doctors,
+  foreignKey: "doctorId",
+});
+
+db.Hospital.hasMany(db.Doctor, {
+  foreignKey: "hospitalId",
+  allowNull: false,
+});
+
+db.Doctor.belongsTo(db.Hospital, {
+  as: "hospital",
+  foreignKey: "hospitalId",
 });
 
 module.exports = db;
