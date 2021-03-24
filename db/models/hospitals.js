@@ -1,7 +1,7 @@
 const SequelizeSlugify = require("sequelize-slugify");
 module.exports = (sequelize, DataTypes) => {
   const Hospital = sequelize.define("Hospital", {
-    HospitalName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   SequelizeSlugify.slugifyModel(Hospital, {
-    source: ["HospitalName"],
+    source: ["name"],
   });
   return Hospital;
 };

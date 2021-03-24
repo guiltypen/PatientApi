@@ -6,12 +6,13 @@ const {
   hospitalUpdate,
   hospitalDelete,
   hospitalList,
-  fetchhospital,
+  fetchHospital,
   patientCreate,
+  doctorCreate,
 } = require("../Controllers/hospitalController");
 
 router.param("hospitalId", async (req, res, next, hospitalId) => {
-  const hospital = await fetchhospital(hospitalId, next);
+  const hospital = await fetchHospital(hospitalId, next);
   if (hospital) {
     req.hospital = hospital;
     next();
@@ -29,7 +30,7 @@ router.get("/", hospitalList);
 //delete patients
 router.delete("/:hospitalId", hospitalDelete);
 
-// create patient
+// create hospital
 router.post("/", hospitalCreate);
 
 //Update patient
@@ -37,6 +38,9 @@ router.post("/", hospitalCreate);
 router.put("/:hospitalId", hospitalUpdate);
 
 // create patient
-router.post("/:hospitalId", patientCreate);
+router.post("/:hospitalId/patients", patientCreate);
+
+// create doctor
+router.post("/:hospitalId/doctors", doctorCreate);
 
 module.exports = router;

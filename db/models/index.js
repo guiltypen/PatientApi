@@ -42,5 +42,35 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-db.Hospital.hasMany(db.Patient, { foreignKey: "hospitalId" });
+
+//Relations
+db.Hospital.hasMany(db.Patient, {
+  foreignKey: "hospitalId",
+  allowNull: false,
+});
+
+db.Patient.belongsTo(db.Hospital, {
+  as: "hospital",
+  foreignKey: "hospitalId",
+});
+
+db.Hospital.belongsToMany(db.Doctor, {
+  through: db.hospital_doctors,
+  foreignKey: "hospitalId",
+});
+db.Doctor.belongsToMany(db.Hospital, {
+  through: db.hospital_doctors,
+  foreignKey: "doctorId",
+});
+
+db.Hospital.hasMany(db.Doctor, {
+  foreignKey: "hospitalId",
+  allowNull: false,
+});
+
+db.Doctor.belongsTo(db.Hospital, {
+  as: "hospital",
+  foreignKey: "hospitalId",
+});
+
 module.exports = db;
